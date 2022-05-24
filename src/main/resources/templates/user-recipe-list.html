@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1" />
+    <title>User Recipe Page</title>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/UserRecipePage.css" />
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="/user/start-page" id="logo" class="logo">
+            <img src="/images/logo_with_bg.jpeg" alt="Responsive image"></a>
+        <i class="fas fa-bars" id="ham-menu"></i>
+        <ul id="nav-bar">
+            <li>
+                <a href="/user/start-page">Home</a>
+            </li>
+            <li>
+                <a href="#footer">About Us</a>
+            </li>
+            <li>
+                <a href="/user/contacts">Contacts</a>
+            </li>
+            <li>
+                <a href="/user/faq">FAQ</a>
+            </li>
+            <li>
+                <a th:href="@{/user/cabinet/{i}(i=${id})}" style="color: white">My cabinet</a>
+            </li>
+        </ul>
+        <div class="nav-action">
+            <a href="/user/start-page"><button>Log Out</button></a>
+        </div>
+    </nav>
+</header>
+
+<section id="home">
+    <h1></h1>
+</section>
+
+<!--Carousel Wrapper-->
+<div id="carousel-thumb" class="carousel carousel-thumbnails slide" data-ride="carousel" data-interval="15000">
+    <!--Slides-->
+    <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active carousel-banner">
+            <img class="d-block w-100 h-30 carousel-img-fit" src="/images/banner1.jpg" alt="First slide">
+            <div class="row carousel-ban-text-adj">
+                <div class="row col-12">
+                    <h1 class="col-12 carousel-header-adj">Lean pancakes with apple juice</h1>
+                    <p class="col-12 carousel-paragraph">Such pastries will be relevant for those who are fasting or for those who adhere to a special diet</p>
+                    <a href="/internet" class="btn btn-large col-md-3" style="color:black; background-color: #AABC7B">View More...</a>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item carousel-banner">
+            <img class="d-block w-100 carousel-img-fit" src="/images/banner2.jpg" alt="Second slide">
+            <div class="row carousel-ban-text-adj">
+                <div class="row col-12">
+                    <h1 class="col-12 carousel-header-adj">Pasta with vegetables</h1>
+                    <p class="col-12 carousel-paragraph">A simple and hearty dish that can be served on its own or as a side dish. </p>
+                    <a href="/internet" class="btn btn-large col-md-3"style="color:black; background-color: #AABC7B">View More...</a>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item carousel-banner">
+            <img class="d-block w-100 carousel-img-fit" src="/images/banner3.jpg" alt="Third slide">
+            <div class="row carousel-ban-text-adj">
+                <div class="row col-12">
+                    <h1 class="col-12 carousel-header-adj">"Napoleon" cake</h1>
+                    <p class="col-12 carousel-paragraph">This is a recipe for a fairly classic "Napoleon" with thin cakes on sparkling water and custard. </p>
+                    <a href="/#" class="btn btn-large col-md-3"style="color:black; background-color: #AABC7B">View More...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carousel-thumb" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carousel-thumb" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+<div class="container">
+    <div class="searching-bar">
+        <input id="searchbar" onkeyup="search_recipe()" type="text"
+               name="search" placeholder="Search food recipes.." class="searching">
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="recipe-content">
+
+        <div th:each="recipe : ${recipes}" class="eachrecipe">
+
+            <div class="row-content" style="font-size: 14px; color:dimgrey">
+                <div th:text="${recipe.author}"></div>
+            </div><br/>
+
+            <div class="row-content" style="justify-content: space-evenly; font-weight: bold;">
+                <div th:text="${recipe.title}" class="foods"></div>
+            </div><br/>
+
+            <div class="row-content like-timestamp">
+
+                <div class="row" style="margin-left: 5px">
+                    <img src="/images/like.png" alt="Responsive image" style="width: 25px; height: 25px">
+                    <div th:text="${recipe.likes}"></div>
+                </div>
+
+                <div th:text="${recipe.timestamp}"></div>
+
+            </div>
+
+            <div><a th:href="@{/recipe/recipe-page/{id}(id=${recipe.recipeId})}" class="btn btn-large col-md-3" style="color:black; background-color: rgba(170, 188, 123, 0.8); font-size: 16px">View</a></div>
+            <br/>
+            <hr/>
+        </div>
+    </div>
+</div><br><br><br><br>
+
+<div class='second-banner'>
+    <img src="/images/banner2backgr.jpg" alt="banner2" class="banner">
+    <div class="row2">
+        <div class="column1">
+            <img src="/images/recipeBook.jpg" alt="book">
+        </div>
+        <div class="column2">
+            <h5>Easy and simple to cook delicious dishes with recipes with BAURSAQ</h5>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="row">
+
+            <div class="row col-4 footer-first-column">
+                <div class="row">
+                    <div class="row col-6">
+                        <img src="/images/logo.png" alt="logo">
+                    </div>
+                    <div class="row col-6 title5">
+                        <h5>BAURSAQ</h5>
+                    </div>
+                </div>
+
+                <div class="row connection">
+                    <p>Connect with us</p>
+                </div>
+                <div class="row social">
+                    <a href="https://github.com/BaursaqSE2004" class="fa fa-github"></a>
+                    <a href="https://teams.microsoft.com/l/team/19%3aLaL_8X-QjZQzWGBjWhJS1cvUVhD1Kgx1aQS-oT7zF641%40thread.tacv2/conversations?groupId=37c6b932-dbc4-441f-a7f1-3db9593feab8&tenantId=158f15f3-83e0-4906-824c-69bdc50d9d61" class="fa fa-microsoft teams"></a>
+                    <a href="https://trello.com/b/OFV5Yt1h/baursaq" class="fa fa-trello"></a>
+                    <a href="https://www.figma.com/files/team/1091293153083130073/Baursaq?fuid=968682088809773642" class="fa fa-figma"></a>
+                    <a href="#" class="fa fa-telegram"></a>
+                </div>
+            </div>
+
+            <div class="row col-7">
+
+                <div class="footer-second-column">
+                    <div>
+                        <div class="name-of-column">Team</div>
+                        <ol>
+                            <li>Saduakas Saida</li>
+                            <li>Bazylzhanova Aisha</li>
+                            <li>Umarova Zukhra</li>
+                            <li>Mukhidenov Diyar</li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <div class="name-of-column">Position</div>
+                        <ol>
+                            <li>Project Manager</li>
+                            <li>Mobile Developer</li>
+                            <li>Front-End Developer</li>
+                            <li>Back-End Developer</li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <div class="name-of-column">Email</div>
+                        <ol>
+                            <li>manager@mail.ru</li>
+                            <li>mobile_dev@mail.ru</li>
+                            <li>front_end@mail.ru</li>
+                            <li>back_end@mail.ru</li>
+                        </ol>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="/js/script.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
+

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1"> <!--UPDATED--->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/NewPostUpdate.css">
+    <title>Post Update Form</title>
+</head>
+<body>
+
+<header>
+    <div class="navigation-bar">
+        <div class="container">
+            <nav class="header">
+                <div class="logo">
+                    <img src="/images/logo_with_bg.jpeg" alt="Responsive image" style="height: 100px, width:140px">
+                </div>
+                <div>
+                    <a th:href="@{/user/cabinet/{i}(i=${id})}" class="navigateToPersonalPage">Personal Profile</a>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="background">
+        <div class="login-form">
+            <form th:action="@{/recipe/update-recipe/{id}/{idd}(id=${id},idd=${idd})}" th:object="${recipe}" th:method="POST">
+                <h1>UPDATING <br> POST</h1>
+                <div class="content">
+                    <div class="input-field">
+                        <label for="content">Content</label>
+                        <textarea type="text" field="*{content}" id="content" name="content" placeholder="Content"></textarea>
+                    </div>
+                    <div class="input-field">
+                        <label for="inst">Instructions</label>
+                        <textarea type="text" field="*{inst}" id="inst" name="inst" placeholder="Recipe instructions"></textarea>
+                    </div>
+                    <div class="action">
+                        <input type="submit" value="Update Recipe">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</body>
+</html>
+

@@ -1,0 +1,853 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1" />
+    <title>Personal Profile</title>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/GuestPage.css" />
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        html {
+            font-size: 62.5%;
+        }
+        *:not(i) {
+            font-family: "Inder", sans-serif;
+        }
+        header {
+            position: fixed;
+            width: 100%;
+            background-color: #F86C63;
+            padding: 5px 20px;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        nav a {
+            font-size: 1.8rem;
+            text-decoration: none;
+        }
+        nav a#logo {
+            color: #000000;
+            font-weight: 700;
+        }
+        nav ul a {
+            margin-left: 30px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        nav ul a:hover {
+            color: #ffffff;
+            border-bottom: 2px solid #ffffff;
+        }
+        nav p{
+            color: #E3E3E3;
+            font-size: 1.8rem;
+        }
+        nav .logo img{
+            margin-top:10px;
+            width: 120px;
+            height: 80px;
+        }
+
+        nav p span{
+            color: white;
+        }
+        section#home {
+            height: 90px;
+            display: grid;
+            place-items: center;
+        }
+        h1 {
+            font-size: 4rem;
+        }
+        #ham-menu {
+            display: none;
+        }
+        nav ul.active {
+            left: 0;
+        }
+
+        .banner-link{
+            height: 300px;
+        }
+
+        .carousel {
+            position: relative;
+            height: 500px;
+        }
+
+        .carousel .item {
+            height: 300px;
+        }
+
+        .item img {
+            position: absolute;
+            object-fit:cover;
+            top: 0;
+            left: 0;
+            min-height: 300px;
+        }
+
+        .carousel .carousel-item {
+            height: 300px;
+        }
+
+        .carousel-item img {
+            position: absolute;
+            object-fit:cover;
+            top: 0;
+            left: 0;
+            height: auto;
+        }
+
+        .carousel-ban-text-adj{
+            position: absolute;
+            width: 800px;
+            display: flex;
+            margin-left: 18px;
+            bottom: 180px;
+            background:rgba(248, 108, 99, 0.5);
+            border-radius: 12px;
+            padding: 8px;
+        }
+        .carousel-header-adj{
+            margin: 0;
+            vertical-align: top;
+            padding-left: 0px;
+            text-align: center;
+            left: -3px;
+
+        }
+        .carousel-paragraph{
+            margin-left: 0;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            padding-left: 0;
+            text-align: center;
+        }
+        .carousel-img-fit{
+            min-width: 980px;
+            min-height: 500px;
+            object-fit: cover;
+            object-position: 50% 50%;
+        }
+        .carousel-banner{
+            max-height: 600px !important;
+            min-height: 500px;
+        }
+        .carousel-banner-indicator{
+            margin-left:auto;
+            margin-right:auto;
+            transition: 1s;
+        }
+        .carousel-indicators li {
+            width: 250px;
+            margin-top: -150px;
+            margin-left: -60px;
+            transition: 1s;
+            opacity: 1;
+        }
+        .carousel-swap-adjuster{
+            bottom: -20px;
+        }
+        .carousel-banner.active {
+            display: flex;
+            justify-content: center;
+            align-self: flex-end;
+        }
+        .carousel-banner.carousel-item-next{
+            display: flex;
+            justify-content: center;
+        }
+        .carousel-banner.carousel-item-prev{
+            display: flex;
+            justify-content: center;
+        }
+
+        .searching-bar{
+            display: flex;
+            justify-content: center;
+        }
+
+        #searchbar{
+            margin-top: 50px;
+            padding:15px;
+            border-radius: 10px;
+            border: #AABC7B;
+        }
+
+        .searching{
+            background-color: #AABC7B;
+            color: black;
+            font-weight: bold;
+        }
+
+
+        .food-list{
+            display: flex;
+            margin-top: 50px;
+            text-decoration: none;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .food-list table{
+            border: 2px solid black;
+            padding: 20px;
+            font-size:  25px;
+            color: black;
+            margin-bottom: 10px;
+        }
+
+        .food-list table tr th{
+            border: 1px solid black;
+            padding: 10px 40px;
+        }
+
+        .food-list table tr td{
+            border: 1px solid black;
+            padding: 10px 40px;
+        }
+
+        .food-list table tr td a{
+            color: black;
+        }
+
+        input[type=text] {
+            width: 30%;
+            -webkit-transition: width 0.15s ease-in-out;
+            transition: width 0.15s ease-in-out;
+        }
+
+        input[type=text]:focus {
+            width: 70%;
+        }
+
+        td .foods{
+            display: list-item;
+        }
+        .second-banner img{
+            width: 100%;
+            height: 200px;
+        }
+        .row {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+
+        .row2 {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+        .banner
+        {
+            position:absolute;
+            margin-top: 0px;
+            z-index: 1;
+        }
+
+        .column1 img{
+
+            width: 200px;
+            height: 200px;
+            margin-left: 50px;
+            position:absolute;
+            left: 25px;
+            z-index: 2;
+        }
+        .column2 h5{
+            text-align: center;
+            width: 800px;
+            height: 200px;
+            font-size: 30px;
+            margin-left: 500px;
+            margin-top: 50px;
+            position:absolute;
+            z-index: 3;
+        }
+
+
+        p{
+            font-size: 28px;
+        }
+        a{
+            -webkit-text-stroke-width: 0px;
+        }
+        .tile_1{
+            z-index: 14;
+        }
+        .tile_2{
+            z-index: 13;
+        }
+        .tile_3{
+            z-index: 12;
+        }
+
+        .banner-link{
+            background:rgba(248, 108, 99, 0.8);
+            height: 10px;
+            padding: 10px 5px;
+        }
+
+        footer{
+            display: grid;
+            margin-top: 300px;
+            background:rgba(77, 192, 91, 0.8);
+            height: 300px;
+            color: white;
+        }
+
+        .footer-first-column{
+            margin: 20px;
+        }
+        .footer-first-column img{
+            width:100px;
+            height: 80px;
+        }
+        .footer-first-column h5{
+            margin-left: 50px;
+            margin-top: 30px;
+            font-size: 30px;
+        }
+
+        .footer-first-column .connection{
+            margin-left: -280px;
+            margin-top: 140px;
+            font-size: 30px;
+        }
+        .footer-first-column .social{
+            margin-left: -20px;
+        }
+
+        .footer-second-column{
+            display: grid;
+            grid-template-rows: 30% 70%;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: 10px;
+            font-size: 10px;
+        }
+        .footer-second-column .name-of-column{
+            margin-top: 40px;
+            font-size: 25px;
+        }
+        .footer-second-column ol{
+            margin-top: 40px;
+            text-decoration: none;
+            list-style-type : none;
+
+        }
+
+        .footer-second-column li{
+            padding-top: 8px;
+            font-size: 19px;
+
+        }
+
+        .footer-second-column>div{
+            color: white;
+            font-size: 20px;
+            padding: 10px;
+        }
+
+        .fa {
+            margin-left: 10px;
+            margin-top: 10px;
+            margin-bottom: 12px;
+            padding: 10px;
+            font-size: 30px;
+            width: 50px;
+            text-align: center;
+            text-decoration: none;
+        }
+        .fa:hover {
+            opacity: 0.7;
+        }
+        .fa-github {
+            background: white;
+            color: black;
+        }
+        .fa-microsoft teams{
+            background: #55ACEE;
+            color: black;
+        }
+        .fa-trello {
+            background: #55ACEE;
+            color: white;
+        }
+        .fa-figma {
+            background: white;
+            color: red;
+        }
+        .fa-telegram {
+            background: white;
+            color: #55ACEE;
+        }
+
+
+        #outer-grid {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 35% 65%;
+            grid-gap: 10px;
+        }
+        #outer-grid > div {
+            background-color: red;
+            color: white;
+            font-size: 4vw;
+            padding: 10px;
+        }
+        #inner-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: 5px;
+        }
+        #inner-grid > div {
+            background: salmon;
+            padding: 10px;
+        }
+
+
+        @media(max-width: 1200px){
+            html {
+                font-size: 60.25%;
+            }
+            header {
+                padding: 2rem 3rem;
+            }
+            nav ul a {
+                margin-left: 0px;
+            }
+            nav a {
+                font-size: 50px;
+                text-decoration: none;
+            }
+            nav a#logo {
+                color: #000000;
+                font-weight: 700;
+            }
+            nav ul a {
+                margin-left: 30px;
+                color: #ffffff;
+                font-weight: 600;
+            }
+
+
+        }
+
+        @media only screen and (max-width: 991px) {
+            html {
+                font-size: 56.25%;
+            }
+            header {
+                padding: 2.2rem 5rem;
+            }
+            nav ul a {
+                margin-left: 0px;
+            }
+
+        }
+        @media only screen and (max-width: 767px) {
+            html {
+                font-size: 50%;
+            }
+            #ham-menu {
+                display: block;
+                color: #ffffff;
+            }
+            nav a#logo,
+            #ham-menu {
+                font-size: 3.2rem;
+            }
+            nav ul {
+                background-color: black;
+                position: fixed;
+                left: -100vw;
+                top: 73.6px;
+                width: 100vw;
+                height: calc(100vh - 73.6px);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-around;
+                transition: 1s;
+                gap: 0;
+            }
+            .carousel-swap-adjuster{
+                bottom: -40px;
+            }
+        }
+        @media only screen and (max-width: 575px) {
+            html {
+                font-size: 46.87%;
+            }
+            header {
+                padding: 2rem 3rem;
+            }
+            nav ul {
+                top: 65.18px;
+                height: calc(100vh - 65.18px);
+            }
+            .carousel-swap-adjuster{
+                bottom: -75px;
+            }
+        }
+
+        div.background{
+            width: 100%;
+        }
+
+        .login-form {
+            height: 60%;
+            width: 50%;
+            margin: 150px auto;
+            font-size: 30px;
+        }
+        .login-form h1 {
+            padding: 25px 20px 0 20px;
+            font-size: 50px;
+        }
+
+        .login-form .input-field {
+            padding: 10px 8px;
+        }
+        .login-form .input-field h5{
+            font-size: 30px;
+        }
+        div.background{
+            width: 100%;
+            height: 150%;
+        }
+
+        .login-form {
+            height: 95%;
+            width: 80%;
+            margin: 30px auto;
+            font-size: 30px;
+        }
+        .login-form h1 {
+            padding: 25px 20px 0 20px;
+            font-size: 50px;
+        }
+
+        .login-form .input-field {
+            padding: 10px 8px;
+            margin: 30px 10px;
+        }
+
+        .login-form .input-field input{
+            font-size: 36px;
+            display: block;
+            font-family: 'Rubik', sans-serif;
+            width: 50%;
+            padding: 10px 1px;
+            border: 0;
+            border-bottom: 1px solid #747474;
+            outline: none;
+            -webkit-transition: all .2s;
+            transition: all .2s;
+        }
+
+        .login-form .input-field h5{
+            font-size: 30px;
+        }
+        .login-form .action button {
+            width: 50%;
+            border: none;
+            padding: 12px 6px;
+            margin: 60px 0 0 0;
+            font-family: 'Rubik', sans-serif;
+            cursor: pointer;
+            text-transform: uppercase;
+            background: #13ed30;
+            color: #000;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 0;
+            letter-spacing: 0.2px;
+            outline: 0;
+            -webkit-transition: all .3s;
+            transition: all .3s;
+            background-color: #13ed30;
+        }
+        .login-form .action button:hover {
+            background: #13ed30;
+        }
+        .login-form .action button:nth-child(2) {
+            background: #13ed30;
+            color: #fff;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 4px;
+        }
+        .login-form .action button:nth-child(2):hover {
+            background: #13ed30;
+        }
+        .back{
+            background-color: #55ACEE;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="/user/start-page" id="logo" class="logo">
+            <img src="/user/logo_with_bg.jpeg" alt="Responsive image"></a>
+        <i class="fas fa-bars" id="ham-menu"></i>
+        <ul id="nav-bar">
+            <li>
+                <a href="/user/start-page">Home</a>
+            </li>
+            <li>
+                <a href="#about">About Us</a>
+            </li>
+            <li>
+                <a href="contacts.html">Contacts</a>
+            </li>
+            <li>
+                <a href="#questions">FAQ</a>
+            </li>
+        </ul>
+        <p>You are logged in as a <span>Guest</span></p>
+    </nav>
+</header>
+
+<section id="home">
+    <h1></h1>
+</section>
+
+<main><center><div class="background">
+    <div class="login-form">
+        <form th:method="POST" th:object="${user}" th:action="@{/user/sign-in-form}">
+            <h1>Personal Profile</h1>
+            <div class="content">
+                <div class="input-field">
+                    <div>   <tr object="${user}">
+                        <h5>Username</h5>
+                        <td th:text="${user.username}"></td>
+                        <h5>Name</h5>
+                        <td th:text="${user.name}"></td>
+                        <h5>Surname</h5>
+                        <td th:text="${user.surname}"></td>
+                        <td><a th:href="@{/user/delete/{username}(username=${user.username})}">Delete an account</a></td>
+                    </tr></div>
+                </div>
+
+
+                <div class="action">
+                    <button type="submit">Create a new post</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <p>My Posts</p>
+    <div class="back">
+        <p><a th:href="@{/recipe/recipe-creation/{id}(id=${user.id})}">Create recipe</a></p>
+        <div>
+            <table border="5px">
+                <thead>
+                <tr>
+                    <th>recipe title</th>
+                    <th>timestamp</th>
+                    <th>likes</th>
+                </tr>
+                </thead>
+                <tr th:each="recipe : ${user.recipes}">
+                    <td th:text="${recipe.title}"></td>
+                    <td th:text="${recipe.timestamp}"></td>
+                    <td th:text="${recipe.likes}"></td>
+                    <td><a href="">View</a></td>
+                    <td><a href="">Update</a></td>
+                    <td><a th:href="@{/delete-recipe/{id}/{title}(user_id=${user.id},content=${recipe.title})}">Delete</a></td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <p><a th:href="@{/recipe/user-recipe-list/{id}(id=${user.id})}">Recipe list</a></p>
+            <p><a href="/user/start-page">Log Out</a></p>
+        </div>
+
+    </div>
+</div></center></main>
+<!-- 
+
+<div id="carousel-thumb" class="carousel carousel-thumbnails slide" data-ride="carousel" data-interval="15000">
+
+    <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active carousel-banner">
+            <img class="d-block w-100 h-30 carousel-img-fit" src="/images/banner1.jpg" alt="First slide">
+            <div class="row carousel-ban-text-adj">
+                <div class="row col-12">
+                    <h1 class="col-12 carousel-header-adj">Lean pancakes with apple juice</h1>
+                    <p class="col-12 carousel-paragraph">Such pastries will be relevant for those who are fasting or for those who adhere to a special diet</p>
+                    <a href="/internet" class="btn btn-large col-md-3" style="color:black; background-color: #AABC7B">View More...</a>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item carousel-banner">
+            <img class="d-block w-100 carousel-img-fit" src="/images/banner2.jpg" alt="Second slide">
+            <div class="row carousel-ban-text-adj">
+                <div class="row col-12">
+                    <h1 class="col-12 carousel-header-adj">Pasta with vegetables</h1>
+                    <p class="col-12 carousel-paragraph">A simple and hearty dish that can be served on its own or as a side dish. </p>
+                    <a href="/internet" class="btn btn-large col-md-3"style="color:black; background-color: #AABC7B">View More...</a>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item carousel-banner">
+            <img class="d-block w-100 carousel-img-fit" src="/images/banner3.jpg" alt="Third slide">
+            <div class="row carousel-ban-text-adj">
+                <div class="row col-12">
+                    <h1 class="col-12 carousel-header-adj">"Napoleon" cake</h1>
+                    <p class="col-12 carousel-paragraph">This is a recipe for a fairly classic "Napoleon" with thin cakes on sparkling water and custard. </p>
+                    <a href="/#" class="btn btn-large col-md-3"style="color:black; background-color: #AABC7B">View More...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carousel-thumb" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carousel-thumb" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+<div class="container">
+    <div class="searching-bar">
+        <input id="searchbar" onkeyup="search_recipe()" type="text"
+               name="search" placeholder="Search food recipes.." class="searching">
+    </div>
+</div>
+
+<div class="container">
+    <div class="food-list">
+        <table>
+            <thead>
+            <tr>
+                <th>Author</th>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Likes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="recipe : ${recipes}">
+                <td th:text="${recipe.author}" class="foods"></td>
+                <td th:text="${recipe.title}" class="foods"></td>
+                <td th:text="${recipe.timestamp}" class="foods"></td>
+                <td th:text="${recipe.likes}" class="foods"></td>
+                <td><a th:href="@{/recipe/recipe-page-restricted/{id}(id=${recipe.recipeId})}">View</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div><br><br><br><br>
+
+
+<div class='second-banner'>
+    <img src="/images/banner2backgr.jpg" alt="banner2" class="banner">
+    <div class="row2">
+        <div class="column1">
+            <img src="/images/recipeBook.jpg" alt="book">
+        </div>
+        <div class="column2">
+            <h5>Easy and simple to cook delicious dishes with recipes with BAURSAQ</h5>
+        </div>
+    </div>
+</div> -->
+
+<footer>
+    <div class="container">
+        <div class="row">
+
+            <div class="row col-4 footer-first-column">
+                <div class="row">
+                    <div class="row col-6">
+                        <img src="/images/logo.png" alt="logo">
+                    </div>
+                    <div class="row col-6 titleh5">
+                        <h5>BAURSAQ</h5>
+                    </div>
+                </div>
+
+                <div class="row connection">
+                    <p>Connect with us</p>
+                </div>
+                <div class="row social">
+                    <a href="https://github.com/BaursaqSE2004" class="fa fa-github"></a>
+                    <a href="https://teams.microsoft.com/l/team/19%3aLaL_8X-QjZQzWGBjWhJS1cvUVhD1Kgx1aQS-oT7zF641%40thread.tacv2/conversations?groupId=37c6b932-dbc4-441f-a7f1-3db9593feab8&tenantId=158f15f3-83e0-4906-824c-69bdc50d9d61" class="fa fa-microsoft teams"></a>
+                    <a href="https://trello.com/b/OFV5Yt1h/baursaq" class="fa fa-trello"></a>
+                    <a href="https://www.figma.com/files/team/1091293153083130073/Baursaq?fuid=968682088809773642" class="fa fa-figma"></a>
+                    <a href="#" class="fa fa-telegram"></a>
+                </div>
+            </div>
+
+            <div class="row col-7">
+
+                <div class="footer-second-column">
+                    <div>
+                        <div class="name-of-column">Team</div>
+                        <ol>
+                            <li>Saduakas Saida</li>
+                            <li>Bazylzhanova Aisha</li>
+                            <li>Umarova Zukhra</li>
+                            <li>Mukhidenov Diyar</li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <div class="name-of-column">Position</div>
+                        <ol>
+                            <li>Project Manager</li>
+                            <li>Mobile Developer</li>
+                            <li>Front-End Developer</li>
+                            <li>Back-End Developer</li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <div class="name-of-column">Email</div>
+                        <ol>
+                            <li>manager@mail.ru</li>
+                            <li>mobile_dev@mail.ru</li>
+                            <li>front_end@mail.ru</li>
+                            <li>back_end@mail.ru</li>
+                        </ol>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="/js/script.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

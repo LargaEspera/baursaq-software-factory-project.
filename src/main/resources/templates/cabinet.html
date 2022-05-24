@@ -1,0 +1,732 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1" />
+    <title>Personal Profile</title>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        html {
+            font-size: 62.5%;
+        }
+        *:not(i) {
+            font-family: "Inder", sans-serif;
+        }
+        header {
+            position: fixed;
+            width: 100%;
+            background-color: #F86C63;
+            padding: 5px 20px;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        nav a {
+            font-size: 1.8rem;
+            text-decoration: none;
+        }
+        nav a#logo {
+            color: #000000;
+            font-weight: 700;
+        }
+        nav ul a {
+            margin-left: 30px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        nav ul a:hover {
+            color: #ffffff;
+            border-bottom: 2px solid #ffffff;
+        }
+        nav p{
+            color: #E3E3E3;
+            font-size: 1.8rem;
+        }
+        nav .logo img{
+            margin-top:10px;
+            width: 120px;
+            height: 80px;
+        }
+
+        nav p span{
+            color: white;
+        }
+        section#home {
+            display: grid;
+            place-items: center;
+        }
+        h1 {
+            font-size: 4rem;
+        }
+        #ham-menu {
+            display: none;
+        }
+        nav ul.active {
+            left: 0;
+        }
+
+        .carousel .item {
+            height: 300px;
+        }
+
+        .item img {
+            position: absolute;
+            object-fit:cover;
+            top: 0;
+            left: 0;
+            min-height: 300px;
+        }
+
+        .carousel .carousel-item {
+            height: 300px;
+        }
+
+        .carousel-item img {
+            position: absolute;
+            object-fit:cover;
+            top: 0;
+            left: 0;
+            height: auto;
+        }
+
+        .carousel-indicators li {
+            width: 250px;
+            margin-top: -150px;
+            margin-left: -60px;
+            transition: 1s;
+            opacity: 1;
+        }
+
+        .food-list table{
+            border: 2px solid black;
+            padding: 20px;
+            font-size:  25px;
+            color: black;
+            margin-bottom: 10px;
+        }
+
+        .food-list table tr th{
+            border: 1px solid black;
+            padding: 10px 40px;
+        }
+
+        .food-list table tr td{
+            border: 1px solid black;
+            padding: 10px 40px;
+        }
+
+        .food-list table tr td a{
+            color: black;
+        }
+
+        input[type=text] {
+            width: 30%;
+            -webkit-transition: width 0.15s ease-in-out;
+            transition: width 0.15s ease-in-out;
+        }
+
+        input[type=text]:focus {
+            width: 70%;
+        }
+
+        td .foods{
+            display: list-item;
+        }
+        .second-banner img{
+            width: 100%;
+            height: 200px;
+        }
+        .row {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+
+
+        .column1 img{
+
+            width: 200px;
+            height: 200px;
+            margin-left: 50px;
+            position:absolute;
+            left: 25px;
+            z-index: 2;
+        }
+        .column2 h5{
+            text-align: center;
+            width: 800px;
+            height: 200px;
+            font-size: 30px;
+            margin-left: 500px;
+            margin-top: 50px;
+            position:absolute;
+            z-index: 3;
+        }
+
+
+        p{
+            font-size: 28px;
+        }
+        a{
+            -webkit-text-stroke-width: 0px;
+        }
+
+        footer{
+            display: grid;
+            margin-top: 300px;
+            background:rgba(77, 192, 91, 0.8);
+            height: 300px;
+            color: white;
+        }
+
+        .footer-first-column{
+            margin: 20px;
+        }
+        .footer-first-column img{
+            width:100px;
+            height: 80px;
+        }
+        .footer-first-column h5{
+            margin-left: 50px;
+            margin-top: 30px;
+            font-size: 30px;
+        }
+
+        .footer-first-column .connection{
+            margin-left: -280px;
+            margin-top: 140px;
+            font-size: 30px;
+        }
+        .footer-first-column .social{
+            margin-left: -20px;
+        }
+
+        .footer-second-column{
+            display: grid;
+            grid-template-rows: 30% 70%;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: 10px;
+            font-size: 10px;
+        }
+        .footer-second-column .name-of-column{
+            margin-top: 40px;
+            font-size: 25px;
+        }
+        .footer-second-column ol{
+            margin-top: 40px;
+            text-decoration: none;
+            list-style-type : none;
+
+        }
+
+        .footer-second-column li{
+            padding-top: 8px;
+            font-size: 19px;
+
+        }
+
+        .footer-second-column>div{
+            color: white;
+            font-size: 20px;
+            padding: 10px;
+        }
+
+        .fa {
+            margin-left: 10px;
+            margin-top: 10px;
+            margin-bottom: 12px;
+            padding: 10px;
+            font-size: 30px;
+            width: 50px;
+            text-align: center;
+            text-decoration: none;
+        }
+        .fa:hover {
+            opacity: 0.7;
+        }
+        .fa-github {
+            background: white;
+            color: black;
+        }
+        .fa-microsoft teams{
+            background: #55ACEE;
+            color: black;
+        }
+        .fa-trello {
+            background: #55ACEE;
+            color: white;
+        }
+        .fa-figma {
+            background: white;
+            color: red;
+        }
+        .fa-telegram {
+            background: white;
+            color: #55ACEE;
+        }
+
+        #outer-grid > div {
+            background-color: red;
+            color: white;
+            font-size: 4vw;
+            padding: 10px;
+        }
+        #inner-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: 5px;
+        }
+        #inner-grid > div {
+            background: salmon;
+            padding: 10px;
+        }
+        .action button {
+            width: 100%;
+            border: none;
+            padding: 15px 3px;
+            margin: 10px 0px;
+            margin-left: 300px;
+            font-family: 'Rubik', sans-serif;
+            cursor: pointer;
+            text-transform: uppercase;
+            background: #e8e9ec;
+            color: #000;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 0;
+            letter-spacing: 0.2px;
+            outline: 0;
+            -webkit-transition: all .3s;
+            transition: all .3s;
+            background-color: #E3E3E3;
+        }
+
+        .content{
+            display: grid;
+            grid-template-columns: 40% 60%;
+            grid-gap: 10px;
+        }
+
+        .content .profile-logo{
+            grid-gap: 10px;
+
+        }
+
+        .content .input-field{
+            display: grid;
+            grid-gap: 10px;
+            text-align: left;
+        }
+
+
+        .recipe-content {
+            display: flex;
+            justify-content: center;
+            background: rgba(248, 108, 99, 0.7);
+            margin: 50px 100px;
+            font-size: 20px;
+            padding: 20px 50px;
+        }
+
+        .recipe-content table{
+            padding: 20px 50px;
+            align-items: center;
+            border: none;
+            margin-bottom: 20px;
+            width: 70%;
+        }
+
+        .recipe-content table thead{
+            font-weight: bold;
+        }
+
+        th{
+            align-items: center;
+            padding: 20px;
+        }
+
+        td{
+            align-items: center;
+            padding: 20px;
+        }
+
+        .eachrecipe{
+            margin: 30px;
+        }
+
+        .like-timestamp{
+            display: grid;
+            grid-template-columns: 80% 20%;
+            font-size: 20px;
+        }
+
+        .foods{
+            display: list-item;
+            text-decoration: none;
+            list-style-type: none;
+            text-align: center;           /* would be center*/
+            justify-content: center;      /*would be center*/
+        }
+
+        .row-content{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+
+        @media(max-width: 1200px){
+            html {
+                font-size: 60.25%;
+            }
+            header {
+                padding: 2rem 3rem;
+            }
+            nav ul a {
+                margin-left: 0px;
+            }
+            nav a {
+                font-size: 50px;
+                text-decoration: none;
+            }
+            nav a#logo {
+                color: #000000;
+                font-weight: 700;
+            }
+            nav ul a {
+                margin-left: 30px;
+                color: #ffffff;
+                font-weight: 600;
+            }
+
+
+        }
+
+        @media only screen and (max-width: 991px) {
+            html {
+                font-size: 56.25%;
+            }
+            header {
+                padding: 2.2rem 5rem;
+            }
+            nav ul a {
+                margin-left: 0px;
+            }
+
+        }
+        @media only screen and (max-width: 767px) {
+            html {
+                font-size: 50%;
+            }
+            #ham-menu {
+                display: block;
+                color: #ffffff;
+            }
+            nav a#logo,
+            #ham-menu {
+                font-size: 3.2rem;
+            }
+            nav ul {
+                background-color: black;
+                position: fixed;
+                left: -100vw;
+                top: 73.6px;
+                width: 100vw;
+                height: calc(100vh - 73.6px);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-around;
+                transition: 1s;
+                gap: 0;
+            }
+            .carousel-swap-adjuster{
+                bottom: -40px;
+            }
+        }
+        @media only screen and (max-width: 575px) {
+            html {
+                font-size: 46.87%;
+            }
+            header {
+                padding: 2rem 3rem;
+            }
+            nav ul {
+                top: 65.18px;
+                height: calc(100vh - 65.18px);
+            }
+            .carousel-swap-adjuster{
+                bottom: -75px;
+            }
+        }
+
+
+        .login-form {
+            display: grid;
+            height: 90%;
+            width: 70%;
+            margin: 150px auto;
+            font-size: 30px;
+            background-color: #E3E3E3;
+        }
+        .login-form h1 {
+            padding: 25px 20px 0 20px;
+            font-size: 50px;
+        }
+
+        .login-form .input-field {
+            padding: 10px 8px;
+        }
+        .login-form .input-field h5{
+            font-size: 30px;
+        }
+        div.background{
+            margin-top: -65px;
+            margin-bottom: -300px;
+            width: 100%;
+            height: 200%;
+            background-image: url("/images/background-homePage3.png");
+        }
+
+        .input-field  .action button {
+            width: 80%;
+            border: none;
+            padding: 12px 6px;
+            margin: 60px 0 0 0;
+            font-family: 'Rubik', sans-serif;
+            cursor: pointer;
+            text-transform: uppercase;
+            background: #13ed30;
+            color: #000;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 0;
+            letter-spacing: 0.2px;
+            outline: 0;
+            -webkit-transition: all .3s;
+            transition: all .3s;
+            background-color: #13ed30;
+        }
+        .input-field .action button:hover {
+            background: #13ed30;
+        }
+        .input-field .action button:nth-child(2) {
+            background: #13ed30;
+            color: #fff;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 4px;
+        }
+        .input-field  .action button:nth-child(2):hover {
+            background: #13ed30;
+        }
+        .nav-action button{
+            background-color: #4DC05B;
+            padding: 15px 5px;
+            text-align: center;
+            width: 100px;
+            border: none;
+        }
+
+        .nav-action a{
+            background-color: #4DC05B;
+            text-align: center;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav2{
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .nav2 p{
+            margin: 12px 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="/user/start-page" id="logo" class="logo">
+            <img src="/images/logo_with_bg.jpeg" alt="Responsive image"></a>
+        <i class="fas fa-bars" id="ham-menu"></i>
+        <ul id="nav-bar">
+            <li>
+                <a href="/user/start-page">Home</a>
+            </li>
+            <li>
+                <a href="#footer">About Us</a>
+            </li>
+            <li>
+                <a href="/user/contacts">Contacts</a>
+            </li>
+            <li>
+                <a href="/user/faq">FAQ</a>
+            </li>
+        </ul>
+
+        <div class="nav2">
+        <p>You are logged in as a <span>User</span></p>
+        <div class="nav-action">
+            <button><a href="/user/start-page">LOG OUT</a></button>
+        </div>
+        </div>
+    </nav>
+</header>
+
+<section id="home">
+    <h1></h1>
+</section>
+
+<div class="background">
+    <div class="login-form">
+        <form th:method="POST" th:object="${user}" th:action="@{/user/sign-in-form}">
+            <center><h1>Personal Profile</h1></center>
+            <div class="content">
+                <div class="profile-logo">
+                    <img src="/images/avatar.png" alt="Responsive image" style="padding: 8px; height: 288px; width:387px; margin-left: 50px">
+                </div>
+
+                <div class="input-field" style="margin-left:100px">
+                    <div>   <tr object="${user}">
+                        <h5><b>Username</b></h5>
+                        <td th:text="${user.username}"></td>
+                        <h5><b>Name</b></h5>
+                        <td th:text="${user.name}"></td>
+                        <h5><b>Surname</b></h5>
+                        <td th:text="${user.surname}"></td><br>
+                        <td><a th:href="@{/user/delete/{username}(username=${user.username})}" style="margin-top: 10px">Delete an account</a></td>
+                        <div class="action">
+                            <button type="submit"><a  th:href="@{/recipe/recipe-creation/{id}(id=${user.id})}">Create a new post</a></button>
+                        </div>
+                    </tr></div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <center><div>
+        <p><button  class="btn btn-large col-md-3" style="background-color: #13ed30; font-size: 30px; margin-top: -100px"><a th:href="@{/recipe/user-recipe-list/{id}(id=${user.id})}">Recipe list</a></button></p>
+    </div></center>
+
+
+    <h1><center>My Posts</center></h1>
+
+    <div class="container">
+        <div class="recipe-content">
+            <table border="5px">
+                <thead>
+                <tr>
+                    <th>Recipe title</th>
+                    <th>Timestamp</th>
+                    <th>Likes</th>
+                </tr>
+                </thead>
+                <tr th:each="recipe : ${user.recipes}">
+                    <td th:text="${recipe.title}"></td>
+                    <td th:text="${recipe.timestamp}"></td>
+                    <td th:text="${recipe.likes}"></td>
+                    <td><a th:href="@{/recipe/recipe-page/{id}(id=${recipe.recipeId})}">View</a></td>
+                    <td><a th:href="@{/recipe/update-recipe/{id}/{i}(id=${recipe.recipeId},i=${user.id})}">Update</a></td>
+                    <td><a th:href="@{/delete-recipe/{id}/{title}(user_id=${user.id},content=${recipe.title})}">Delete</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+
+</div>
+
+<footer id="footer">
+    <div class="container">
+        <div class="row">
+
+            <div class="row col-4 footer-first-column">
+                <div class="row">
+                    <div class="row col-6">
+                        <img src="/images/logo.png" alt="logo">
+                    </div>
+                    <div class="row col-6 titleh5">
+                        <h5>BAURSAQ</h5>
+                    </div>
+                </div>
+
+                <div class="row connection">
+                    <p>Connect with us</p>
+                </div>
+                <div class="row social">
+                    <a href="https://github.com/BaursaqSE2004" class="fa fa-github"></a>
+                    <a href="https://teams.microsoft.com/l/team/19%3aLaL_8X-QjZQzWGBjWhJS1cvUVhD1Kgx1aQS-oT7zF641%40thread.tacv2/conversations?groupId=37c6b932-dbc4-441f-a7f1-3db9593feab8&tenantId=158f15f3-83e0-4906-824c-69bdc50d9d61" class="fa fa-microsoft teams"></a>
+                    <a href="https://trello.com/b/OFV5Yt1h/baursaq" class="fa fa-trello"></a>
+                    <a href="https://www.figma.com/files/team/1091293153083130073/Baursaq?fuid=968682088809773642" class="fa fa-figma"></a>
+                    <a href="#" class="fa fa-telegram"></a>
+                </div>
+            </div>
+
+            <div class="row col-7">
+
+                <div class="footer-second-column">
+                    <div>
+                        <div class="name-of-column">Team</div>
+                        <ol>
+                            <li>Saduakas Saida</li>
+                            <li>Bazylzhanova Aisha</li>
+                            <li>Umarova Zukhra</li>
+                            <li>Mukhidenov Diyar</li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <div class="name-of-column">Position</div>
+                        <ol>
+                            <li>Project Manager</li>
+                            <li>Mobile Developer</li>
+                            <li>Front-End Developer</li>
+                            <li>Back-End Developer</li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <div class="name-of-column">Email</div>
+                        <ol>
+                            <li>manager@mail.ru</li>
+                            <li>mobile_dev@mail.ru</li>
+                            <li>front_end@mail.ru</li>
+                            <li>back_end@mail.ru</li>
+                        </ol>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="/js/script.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
+
